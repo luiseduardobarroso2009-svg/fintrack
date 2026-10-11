@@ -93,6 +93,11 @@ export function TransactionForm({ categories, defaultDate }: { categories: Categ
         <p className="status" role="status">
           {state.saved && !pending ? "Lançamento salvo." : ""}
         </p>
+        {state.message && (
+          <p className="error" role="alert">
+            {state.message}
+          </p>
+        )}
       </div>
     </form>
   );

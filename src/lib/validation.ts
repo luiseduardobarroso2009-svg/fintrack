@@ -15,6 +15,7 @@ export type RawTransaction = Record<Field, unknown>;
 export type FormState = {
   errors: FieldErrors;
   values?: Record<Field, string>;
+  message?: string;
   saved?: boolean;
 };
 

@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 
 import { isMonth, today } from "./dates.ts";
-import { getDb } from "./db.ts";
+import { getDb, IS_DEMO } from "./db.ts";
 import {
   balanceUntil,
   countTransactions,
@@ -39,6 +39,7 @@ export async function getDashboard(requestedMonth: unknown) {
     history: lastMonths(db, month, HISTORY_MONTHS),
     byCategory: expensesByCategory(db, month),
     isEmpty: countTransactions(db) === 0,
+    isDemo: IS_DEMO,
   };
 }
 

@@ -21,6 +21,12 @@ export async function Dashboard({ searchParams }: { searchParams: SearchParams }
 
   return (
     <>
+      {data.isDemo && (
+        <p className="demo" role="note">
+          Demonstração pública: os dados são de exemplo, compartilhados entre os visitantes e apagados de tempos em tempos.
+        </p>
+      )}
+
       <nav className="month-nav" aria-label="Mês exibido">
         <Link href={`/?mes=${addMonths(month, -1)}`} aria-label="Mês anterior">
           ←

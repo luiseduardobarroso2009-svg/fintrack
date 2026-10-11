@@ -3,8 +3,14 @@
 import { refresh } from "next/cache";
 
 import { today } from "@/lib/dates";
-import { getDb } from "@/lib/db";
-import { categoryExists, deleteTransaction, insertTransaction, seedSampleData } from "@/lib/queries";
+import { DEMO_LIMIT, getDb, IS_DEMO } from "@/lib/db";
+import {
+  categoryExists,
+  countTransactions,
+  deleteTransaction,
+  insertTransaction,
+  seedSampleData,
+} from "@/lib/queries";
 import { validateTransaction, type FormState } from "@/lib/validation";
 
 const text = (value: FormDataEntryValue | null) => (typeof value === "string" ? value : "");
@@ -23,6 +29,10 @@ export async function createTransaction(_previous: FormState, formData: FormData
   const db = getDb();
   if (!categoryExists(db, result.value.categoryId)) {
     return { errors: { categoryId: "Escolha uma categoria da lista." }, values };
+  }
+
+  if (IS_DEMO && countTransactions(db) >= DEMO_LIMIT) {
+    return { errors: {}, values, message: "A demonstração chegou ao limite de lançamentos. Exclua algum para adicionar outro." };
   }
 
   insertTransaction(db, result.value);
