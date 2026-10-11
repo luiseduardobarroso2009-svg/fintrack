@@ -4,6 +4,10 @@ Painel de controle financeiro pessoal: registre entradas e saídas, veja o resul
 
 Feito com **Next.js 16** (App Router), **TypeScript** e **SQL** (SQLite).
 
+**Demonstração no ar:** https://fintrack-snowy-sigma.vercel.app
+
+A demonstração usa dados de exemplo, compartilhados entre os visitantes e apagados de tempos em tempos (veja [Limites conhecidos](#limites-conhecidos)).
+
 ## O que ele faz
 
 - Cadastro de lançamentos com descrição, valor, data e categoria, com validação no servidor e mensagens de erro por campo.
@@ -71,5 +75,5 @@ src/
 ## Limites conhecidos
 
 - É um app para uma pessoa só: não tem login, e qualquer um com acesso ao endereço pode lançar e excluir.
-- O SQLite grava em um arquivo local. Isso funciona no seu computador ou em um servidor com disco, mas não em hospedagem serverless, onde o disco é descartado. Para publicar lá, o caminho é trocar o banco por um Postgres hospedado, mexendo só em `db.ts` e `queries.ts`.
+- O SQLite grava em um arquivo local. Isso funciona no seu computador ou em um servidor com disco, mas em hospedagem serverless o disco é descartado. Por isso a demonstração na Vercel roda em modo de demonstração (`IS_DEMO` em `src/lib/db.ts`): o banco fica na pasta temporária, já nasce com dados de exemplo, aceita no máximo 300 lançamentos e volta ao estado inicial quando o servidor reinicia. Para guardar dados de verdade nesse tipo de hospedagem, o caminho é trocar o banco por um Postgres hospedado, mexendo só em `db.ts` e `queries.ts`.
 - Ainda não dá para editar um lançamento nem criar categorias pela tela.
